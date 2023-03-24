@@ -1,0 +1,27 @@
+app = "udp-echo-test"
+kill_signal = "SIGINT"
+kill_timeout = 5
+primary_region = "ams"
+
+[env]
+  TCP_ADDR = "0.0.0.0:53"
+  UDP_ADDR = "fly-global-services:53"
+
+[[services]]
+  internal_port = 53
+  protocol = "tcp"
+
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+    type = "connections"
+
+  [[services.ports]]
+    port = 53
+
+[[services]]
+  internal_port = 53
+  protocol = "udp"
+
+  [[services.ports]]
+    port = 53
